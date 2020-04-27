@@ -8,7 +8,6 @@ platform:
 steps:
   - name: fips-image-build-flannel
     image: goboring/golang:1.10.3b4
-    pull: if-not-exists
     settings:
       username:
         from_secret: docker_username
@@ -22,6 +21,7 @@ steps:
         - drone-publish.rancher.io
       event:
         - tag
+        - push
     commands:
       - make
       - make image-push
