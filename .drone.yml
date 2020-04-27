@@ -8,14 +8,6 @@ platform:
 steps:
   - name: fips-image-build-flannel
     image: goboring/golang:1.10.3b4
-    settings:
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      dockerfile: Dockerfile
-      repo: briandowns/fips-image-build-flannel
-      tag: "${DRONE_TAG}-linux-amd64"
     when:
       instance:
         - drone-publish.rancher.io
