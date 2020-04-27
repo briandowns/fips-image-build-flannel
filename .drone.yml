@@ -7,16 +7,16 @@ platform:
 
 steps:
 - name: fips-image-build-flannel
-  image: goboring/golang:1.10.3b4
+  image: docker:latest
   volumes:
   - name: deps
     path: /go
   when:
     instance:
-      - drone-publish.rancher.io
+    - drone-publish.rancher.io
     event:
-      - tag
-      - push
+    - tag
+    - push
   commands:
   - make
   - make image-push
