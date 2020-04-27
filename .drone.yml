@@ -7,7 +7,8 @@ platform:
 
 steps:
   - name: fips-image-build-flannel
-    image: plugins/docker
+    image: goboring/golang:1.10.3b4
+    pull: if-not-exists
     settings:
       username:
         from_secret: docker_username
