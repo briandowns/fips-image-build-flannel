@@ -14,7 +14,7 @@ steps:
     path: /go
   commands:
   - apt update
-  - apt install -y build-essential docker.io
+  - apt install -y build-essential docker.io systemd
   - systemctl start docker
   - make
   - make image-push
