@@ -10,7 +10,10 @@ steps:
 - name: fips-image-build-flannel
   image: docker:latest
   volumes:
-    /root/.docker:/root/.docker
+  - name: deps
+    path: /go
+  - name: docker socket
+    path: /root/.docker:/root/.docker
   commands:
   - mkdir /root
   - docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
