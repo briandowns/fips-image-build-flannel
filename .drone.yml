@@ -22,3 +22,7 @@ steps:
         - drone-publish.rancher.io
       event:
         - tag
+    commands:
+      - make
+      - make image-push
+      - make image-manifest
