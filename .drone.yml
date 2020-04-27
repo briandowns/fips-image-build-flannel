@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: linux-amd64
 
@@ -11,13 +12,11 @@ steps:
   volumes:
   - name: deps
     path: /go
-  when:
-    instance:
-    - drone-publish.rancher.io
-    event:
-    - tag
-    - push
   commands:
   - make
   - make image-push
   - make image-manifest
+  when:
+    event:
+    - tag
+    - push
