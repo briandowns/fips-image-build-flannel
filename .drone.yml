@@ -13,7 +13,8 @@ steps:
   - name: deps
     path: /go
   commands:
-  - apt install build-essential
+  - apt update
+  - apt install -y build-essential
   - make
   - make image-push
   - make image-manifest
