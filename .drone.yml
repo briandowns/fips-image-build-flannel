@@ -8,11 +8,12 @@ platform:
 
 steps:
 - name: fips-image-build-flannel
-  image: docker:latest
+  image: ubuntu:latest
   volumes:
   - name: deps
     path: /go
   commands:
+  - apt install build-essential
   - make
   - make image-push
   - make image-manifest
