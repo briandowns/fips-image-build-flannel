@@ -6,15 +6,18 @@ platform:
   arch: amd64
 
 steps:
-  - name: fips-image-build-flannel
-    image: goboring/golang:1.10.3b4
-    when:
-      instance:
-        - drone-publish.rancher.io
-      event:
-        - tag
-        - push
-    commands:
-      - make
-      - make image-push
-      - make image-manifest
+- name: fips-image-build-flannel
+  image: goboring/golang:1.10.3b4
+  volumes:
+  - name: deps
+    path: /go
+  when:
+    instance:
+      - drone-publish.rancher.io
+    event:
+      - tag
+      - push
+  commands:
+  - make
+  - make image-push
+  - make image-manifest
