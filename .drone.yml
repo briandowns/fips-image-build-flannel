@@ -13,9 +13,7 @@ steps:
   - name: deps
     path: /go
   commands:
-  - apt update
-  - apt install -y build-essential docker.io systemd
-  - systemctl start docker
+  - docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
   - make
   - make image-push
   - make image-manifest
