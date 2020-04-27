@@ -15,7 +15,6 @@ steps:
   - name: docker socket
     path: /root/.docker:/root/.docker
   commands:
-  - mkdir /root
   - docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
   - make
   - make image-push
