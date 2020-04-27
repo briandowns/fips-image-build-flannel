@@ -8,12 +8,11 @@ platform:
 
 steps:
 - name: fips-image-build-flannel
-  image:  briandowns/rancher-build-base:v0.1.0
+  image: docker:latest
   volumes:
   - name: docker
     path: /var/run/docker.sock
   commands:
-  - docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
   - make
   - make image-push
   - make image-manifest
