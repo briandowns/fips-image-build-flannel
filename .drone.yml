@@ -13,7 +13,7 @@ steps:
   - name: docker
     path: /var/run/docker.sock
   commands:
-  - make
+  - docker -v
   - make image-push
   - make image-manifest
   when:
