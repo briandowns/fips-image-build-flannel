@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: fips-image-build-flannel
-  image: ubuntu:latest
+  image: docker:latest
   volumes:
   - name: deps
     path: /go
