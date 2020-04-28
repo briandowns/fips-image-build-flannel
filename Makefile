@@ -1,3 +1,5 @@
+SEVERITIES = HIGH,CRITICAL
+
 .PHONY: all
 all:
 	docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
@@ -8,7 +10,7 @@ image-push:
 
 .PHONY: scan
 image-scan:
-	trivy --severity HIGH,CRITICAL --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
+	trivy --severity $(SEVERITIES) --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
 
 .PHONY: image-manifest
 image-manifest:
