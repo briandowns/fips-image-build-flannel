@@ -62,7 +62,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - apk update && apk add make
+  - apk update && apk add make jq
   - make image-manifest
   when:
     event:
