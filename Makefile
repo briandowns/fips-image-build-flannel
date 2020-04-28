@@ -7,7 +7,7 @@ image-push:
 	docker push briandowns/fips-image-build-flannel:v0.12.0 >> /dev/null
 
 .PHONY: scan
-scan:
+image-scan:
 	trivy --severity HIGH,CRITICAL --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
 
 .PHONY: image-manifest
