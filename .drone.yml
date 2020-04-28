@@ -7,7 +7,7 @@ platform:
   arch: amd64
 
 steps:
-- name: build
+- name: image-build
   image: docker:dind
   volumes:
   - name: dockersock
@@ -21,14 +21,14 @@ steps:
     - tag
     - push
 
-- name: push
+- name: image-push
   image: docker:dind
   volumes:
   - name: dockersock
     path: /var/run
   commands:
   - apk update && apk add make
-  - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+  - docker login --uusername ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
   - make image-push
   environment:
     DOCKER_USERNAME: 
@@ -40,7 +40,7 @@ steps:
     - tag
     - push
 
-# - name: scan
+# - name: image-scan
 #   image: docker:dind
 #   volumes:
 #   - name: dockersock
@@ -56,7 +56,7 @@ steps:
 #     - tag
 #     - push
 
-- name: manifest
+- name: image-manifest
   image: docker:dind
   volumes:
   - name: dockersock
