@@ -28,7 +28,7 @@ steps:
     path: /var/run
   commands:
   - apk update && apk add make
-  - docker login --uusername ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+  - docker login --uusername $DOCKER_USERNAME --password $DOCKER_PASSWORD
   - make image-push
   environment:
     DOCKER_USERNAME: 
