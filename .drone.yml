@@ -18,7 +18,7 @@ steps:
     - push
 
 - name: fips-image-push-flannel
-  image: docker:latest
+  image: docker:dind
   commands:
   - apt update && apt install -y build-essential
   - make image-push
@@ -29,7 +29,7 @@ steps:
     - push
 
 - name: fips-image-manifest-flannel
-  image: docker:latest
+  image: docker:dind
   commands:
   - apt update && apt install -y build-essential
   - make image-manifest
