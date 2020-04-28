@@ -10,7 +10,7 @@ steps:
 - name: fips-image-build-flannel
   image: docker:latest
   commands:
-  - apk update && apk install -y make
+  - apk update && apk add make
   - make
   when:
     event:
