@@ -50,7 +50,7 @@ steps:
 services:
 - name: docker
   image: docker:dind
-  privileged: true
+  #privileged: true
   volumes:
   - name: dockersock
     path: /var/run
