@@ -7,8 +7,8 @@ platform:
   arch: amd64
 
 steps:
-- name: fips-image-build-flannel
-  image: docker:dind
+- name: build
+  image: briandowns/rancher-base-build:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
@@ -21,7 +21,7 @@ steps:
     - tag
     - push
 
-- name: fips-image-push-flannel
+- name: push
   image: docker:dind
   volumes:
   - name: dockersock
@@ -40,7 +40,7 @@ steps:
     - tag
     - push
 
-- name: fips-image-scan-flannel
+- name: scan
   image: docker:dind
   volumes:
   - name: dockersock
@@ -56,7 +56,7 @@ steps:
     - tag
     - push
 
-- name: fips-image-manifest-flannel
+- name: manifest
   image: docker:dind
   volumes:
   - name: dockersock
