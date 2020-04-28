@@ -19,7 +19,6 @@ steps:
   when:
     event:
     - tag
-    - push
 
 - name: image-push
   image: docker:dind
@@ -38,7 +37,6 @@ steps:
   when:
     event:
     - tag
-    - push
 
 - name: image-scan
   image: docker:dind
@@ -54,7 +52,6 @@ steps:
   when:
     event:
     - tag
-    - push
 
 - name: image-manifest
   image: docker:dind
@@ -67,7 +64,6 @@ steps:
   when:
     event:
     - tag
-    - push
 
 services:
 - name: docker
