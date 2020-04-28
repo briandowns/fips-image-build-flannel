@@ -28,7 +28,6 @@ steps:
     path: /var/run
   commands:
   - apk update && apk add make
-  - docker login -u ${username} -p ${password}
   - make image-push
   settings:
     environment:
@@ -36,6 +35,22 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+  when:
+    event:
+    - tag
+    - push
+
+- name: fips-image-scan-flannel
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - apk update && apk add make wget
+  - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
+  - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
+  - mv trivy /usr/local/bin
+  - make image-scan
   when:
     event:
     - tag
