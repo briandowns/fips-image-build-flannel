@@ -8,10 +8,7 @@ platform:
 
 steps:
 - name: fips-image-build-flannel
-  image: docker:latest
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
+  image: docker:dind
   commands:
   - apk update && apk add make
   - make
@@ -40,8 +37,3 @@ steps:
     event:
     - tag
     - push
-
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
