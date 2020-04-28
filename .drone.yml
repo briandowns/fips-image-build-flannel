@@ -10,6 +10,7 @@ steps:
 - name: fips-image-build-flannel
   image: docker:latest
   commands:
+  - apt update && apt install -y build-essential
   - make
   when:
     event:
@@ -19,6 +20,7 @@ steps:
 - name: fips-image-push-flannel
   image: docker:latest
   commands:
+  - apt update && apt install -y build-essential
   - make image-push
 
   when:
@@ -29,6 +31,7 @@ steps:
 - name: fips-image-manifest-flannel
   image: docker:latest
   commands:
+  - apt update && apt install -y build-essential
   - make image-manifest
   when:
     event:
