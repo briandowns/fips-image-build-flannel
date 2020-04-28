@@ -9,6 +9,9 @@ platform:
 steps:
 - name: fips-image-build-flannel
   image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
   commands:
   - sleep 20
   - apk update && apk add make
@@ -20,6 +23,9 @@ steps:
 
 - name: fips-image-push-flannel
   image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
   commands:
   - apt update && apt install -y build-essential
   - make image-push
@@ -30,6 +36,9 @@ steps:
 
 - name: fips-image-manifest-flannel
   image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
   commands:
   - apt update && apt install -y build-essential
   - make image-manifest
@@ -37,3 +46,15 @@ steps:
     event:
     - tag
     - push
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
