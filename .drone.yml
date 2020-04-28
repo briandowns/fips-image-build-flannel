@@ -13,8 +13,6 @@ steps:
   - name: docker
     path: /var/run/docker.sock
   commands:
-  - docker -v
-  - docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
   - make
   - make image-push
   - make image-manifest
