@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: linux-amd64
 
@@ -6,18 +7,72 @@ platform:
   arch: amd64
 
 steps:
-- name: fips-image-build-flannel
-  image: docker:latest
+- name: image-build
+  image: docker:dind
   volumes:
-  - name: deps
-    path: /go
+  - name: dockersock
+    path: /var/run
+  commands:
+  - sleep 20
+  - apk update && apk add make
+  - make
   when:
-    instance:
-    - drone-publish.rancher.io
     event:
     - tag
-    - push
+
+- name: image-push
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
   commands:
-  - make
+  - apk update && apk add make
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - make image-push
+  environment:
+    DOCKER_USERNAME: 
+      from_secret: docker_username
+    DOCKER_PASSWORD:
+      from_secret: docker_password
+  when:
+    event:
+    - tag
+
+- name: image-scan
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - apk update && apk add make wget jq rpm
+  - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
+  - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
+  - mv trivy /usr/local/bin
+  - make image-scan
+  when:
+    event:
+    - tag
+
+- name: image-manifest
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - apk update && apk add make jq
   - make image-manifest
+  when:
+    event:
+    - tag
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
