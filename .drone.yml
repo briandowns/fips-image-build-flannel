@@ -9,12 +9,26 @@ platform:
 steps:
 - name: fips-image-build-flannel
   image: docker:latest
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
   commands:
   - make
+  when:
+    event:
+    - tag
+    - push
+
+- name: fips-image-push-flannel
+  image: docker:latest
+  commands:
   - make image-push
+
+  when:
+    event:
+    - tag
+    - push
+
+- name: fips-image-manifest-flannel
+  image: docker:latest
+  commands:
   - make image-manifest
   when:
     event:
