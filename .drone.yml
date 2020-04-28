@@ -27,7 +27,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - apt update && apt install -y build-essential
+  - apk update && apk add make
   - make image-push
   when:
     event:
@@ -40,7 +40,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - apt update && apt install -y build-essential
+  - apk update && apk add make
   - make image-manifest
   when:
     event:
