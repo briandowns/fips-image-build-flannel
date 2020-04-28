@@ -41,15 +41,15 @@ steps:
     - push
 
 - name: image-scan
-  image: docker:dind
+  image: aquasec/trivy
   volumes:
   - name: dockersock
     path: /var/run
   commands:
-  - apk update && apk add make wget
-  - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
-  - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
-  - mv trivy /usr/local/bin
+  # - apk update && apk add make wget
+  # - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
+  # - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
+  # - mv trivy /usr/local/bin
   - make image-scan
   when:
     event:
