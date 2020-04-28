@@ -10,7 +10,7 @@ steps:
 - name: fips-image-build-flannel
   image: docker:dind
   commands:
-  - sleep 5
+  - sleep 20
   - apk update && apk add make
   - make
   when:
