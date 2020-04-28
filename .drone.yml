@@ -28,33 +28,33 @@ steps:
     path: /var/run
   commands:
   - apk update && apk add make
+  - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
   - make image-push
-  settings:
-    environment:
-      username: 
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
+  environment:
+    DOCKER_USERNAME: 
+      from_secret: docker_username
+    DOCKER_PASSWORD:
+      from_secret: docker_password
   when:
     event:
     - tag
     - push
 
-- name: scan
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - apk update && apk add make wget
-  - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
-  - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
-  - mv trivy /usr/local/bin
-  - make image-scan
-  when:
-    event:
-    - tag
-    - push
+# - name: scan
+#   image: docker:dind
+#   volumes:
+#   - name: dockersock
+#     path: /var/run
+#   commands:
+#   - apk update && apk add make wget
+#   - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
+#   - tar zxvf trivy_0.6.0_Linux-64bit.tar.gz
+#   - mv trivy /usr/local/bin
+#   - make image-scan
+#   when:
+#     event:
+#     - tag
+#     - push
 
 - name: manifest
   image: docker:dind
