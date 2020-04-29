@@ -9,7 +9,6 @@ RUN apt update                         && \
     apt install -y ca-certificates git && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /go/src/github.com/coreos
 RUN git clone --depth=1 https://github.com/coreos/flannel.git /go/src/github.com/coreos/flannel
 
 WORKDIR /go/src/github.com/coreos/flannel
