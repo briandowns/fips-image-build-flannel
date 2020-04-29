@@ -6,8 +6,7 @@ FROM ${UBI_IMAGE} as ubi
 FROM ${GO_IMAGE} as builder
 RUN apt update                         && \
     apt upgrade -y                     && \
-    apt install -y ca-certificates git && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y ca-certificates git
 
 RUN git clone --depth=1 https://github.com/coreos/flannel.git /go/src/github.com/coreos/flannel
 
