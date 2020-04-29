@@ -4,8 +4,8 @@ ARG GO_IMAGE=goboring/golang:1.10.3b4
 FROM ${UBI_IMAGE} as ubi
 
 FROM ${GO_IMAGE} as builder
-RUN apt update                         && \
-    apt upgrade -y                     && \
+RUN apt update     && \
+    apt upgrade -y && \
     apt install -y ca-certificates git
 
 RUN git clone --depth=1 https://github.com/coreos/flannel.git /go/src/github.com/coreos/flannel
