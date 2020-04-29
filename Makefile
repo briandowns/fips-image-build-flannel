@@ -10,7 +10,7 @@ image-push:
 
 .PHONY: scan
 image-scan:
-	trivy --severity $(SEVERITIES) --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
+	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
 
 .PHONY: image-manifest
 image-manifest:
