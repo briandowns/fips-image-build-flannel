@@ -1,5 +1,6 @@
 ARG UBI_IMAGE=registry.access.redhat.com/ubi7/ubi-minimal:latest
 ARG GO_IMAGE=goboring/golang:1.10.3b4
+ARG CGO_ENABLED=1
 
 FROM ${UBI_IMAGE} as ubi
 
@@ -14,7 +15,7 @@ WORKDIR /go/src/github.com/coreos/flannel
 
 RUN git fetch --all --tags --prune       && \
     git checkout tags/v0.12.0 -b v0.12.0 && \
-    CGO_ENABLED=1 make dist/flanneld
+    ${CGO_ENABLED} make dist/flanneld
 
 FROM ubi
 RUN microdnf update -y && \
