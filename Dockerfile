@@ -1,5 +1,6 @@
 ARG UBI_IMAGE=registry.access.redhat.com/ubi7/ubi-minimal:latest
 ARG GO_IMAGE=goboring/golang:1.10.3b4
+
 FROM ${GO_IMAGE} as builder
 RUN apt update                         && \
     apt upgrade -y                     && \
