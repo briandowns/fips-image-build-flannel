@@ -21,7 +21,7 @@ steps:
     - tag
 
 - name: image-push
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
@@ -39,7 +39,7 @@ steps:
     - tag
 
 - name: image-scan
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
@@ -54,7 +54,7 @@ steps:
     - tag
 
 - name: image-manifest
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
@@ -67,7 +67,7 @@ steps:
 
 services:
 - name: docker
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   privileged: true
   volumes:
   - name: dockersock
