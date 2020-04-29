@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: image-build
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
