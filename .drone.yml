@@ -56,7 +56,6 @@ steps:
   - name: docker
     path: /var/run
   commands:
-  #- apk update && apk add make jq
   - make image-manifest
   when:
     event:

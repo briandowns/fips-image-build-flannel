@@ -2,19 +2,18 @@ SEVERITIES = HIGH,CRITICAL
 
 .PHONY: all
 all:
-	docker build -t briandowns/fips-image-build-flannel:v0.12.0 .
+	docker build --build-arg TAG=$(TAG) -t briandowns/fips-image-build-flannel:$(TAG) .
 
 .PHONY: image-push
 image-push:
-	docker push briandowns/fips-image-build-flannel:v0.12.0 >> /dev/null
+	docker push briandowns/fips-image-build-flannel:$(TAG) >> /dev/null
 
 .PHONY: scan
 image-scan:
-	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed briandowns/fips-image-build-flannel:v0.12.0
+	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed briandowns/fips-image-build-flannel:$(TAG)
 
 .PHONY: image-manifest
 image-manifest:
-	which jq
-	docker image inspect briandowns/fips-image-build-flannel:v0.12.0
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create fips-image-build-flannel:v0.12.0 \
-		$(shell docker image inspect briandowns/fips-image-build-flannel:v0.12.0 | jq -r '.[] | .RepoDigests[0]')
+	docker image inspect briandowns/fips-image-build-flannel:$(TAG)
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create fips-image-build-flannel:$(TAG) \
+		$(shell docker image inspect briandowns/fips-image-build-flannel:$(TAG) | jq -r '.[] | .RepoDigests[0]')
