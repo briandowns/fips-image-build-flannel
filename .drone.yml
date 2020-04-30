@@ -22,12 +22,12 @@ steps:
     - push
 
 - name: push
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
   commands:
-  - apk update && apk add make
+  #- apk update && apk add make
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - make image-push
   environment:
@@ -40,15 +40,15 @@ steps:
     - tag
 
 - name: scan
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
   commands:
-  - apk update && apk add make wget jq rpm
-  - wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
-  - tar -zxf trivy_0.6.0_Linux-64bit.tar.gz
-  - mv trivy /usr/local/bin
+  #- apk update && apk add make wget jq rpm
+  #- wget https://github.com/aquasecurity/trivy/releases/download/v0.6.0/trivy_0.6.0_Linux-64bit.tar.gz
+  #- tar -zxf trivy_0.6.0_Linux-64bit.tar.gz
+  #- mv trivy /usr/local/bin
   - make image-scan
   when:
     event:
@@ -60,7 +60,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - apk update && apk add make jq
+  #- apk update && apk add make jq
   - make image-manifest
   when:
     event:
