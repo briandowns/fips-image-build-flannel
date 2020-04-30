@@ -10,8 +10,8 @@ steps:
 - name: build
   image: briandowns/rancher-build-base:v0.1.0
   volumes:
-  - name: dockersock
-    path: /var/run
+  - name: docker
+    path: /var/run/docker.sock
   commands:
   - sleep 20
   - apk update && apk add make
@@ -19,6 +19,7 @@ steps:
   when:
     event:
     - tag
+    - push
 
 - name: push
   image: docker:dind
@@ -74,5 +75,6 @@ services:
     path: /var/run
 
 volumes:
-- name: dockersock
-  temp: {}
+  - name: docker
+    host:
+      path: /var/run/docker.sock
