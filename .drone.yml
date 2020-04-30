@@ -7,8 +7,8 @@ platform:
   arch: amd64
 
 steps:
-- name: image-build
-  image: docker:dind
+- name: build
+  image: briandowns/rancher-build-base:v0.1.0
   volumes:
   - name: dockersock
     path: /var/run
@@ -20,7 +20,7 @@ steps:
     event:
     - tag
 
-- name: image-push
+- name: push
   image: docker:dind
   volumes:
   - name: dockersock
@@ -38,7 +38,7 @@ steps:
     event:
     - tag
 
-- name: image-scan
+- name: scan
   image: docker:dind
   volumes:
   - name: dockersock
@@ -53,7 +53,7 @@ steps:
     event:
     - tag
 
-- name: image-manifest
+- name: manifest
   image: docker:dind
   volumes:
   - name: dockersock
@@ -67,7 +67,7 @@ steps:
 
 services:
 - name: docker
-  image: docker:dind
+  image: briandowns/rancher-build-base:v0.1.0
   privileged: true
   volumes:
   - name: dockersock
