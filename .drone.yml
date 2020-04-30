@@ -14,7 +14,7 @@ steps:
     path: /var/run/docker.sock
   commands:
   - sleep 20
-  - apk update && apk add make
+  #- apk update && apk add make
   - make
   when:
     event:
