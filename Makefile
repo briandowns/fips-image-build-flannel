@@ -14,5 +14,6 @@ image-scan:
 
 .PHONY: image-manifest
 image-manifest:
+	docker image inspect briandowns/fips-image-build-flannel:v0.12.0
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create fips-image-build-flannel:v0.12.0 \
 		$(shell docker image inspect briandowns/fips-image-build-flannel:v0.12.0 | jq -r '.[] | .RepoDigests[0]')
